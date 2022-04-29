@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import { handleClick } from "./queryRequest";
 import WebImage from "./webimage";
 
 class Navbar extends Component {
   state = {
     loading: true,
     api_data: [],
+    query: null,
   };
 
   async componentDidMount() {
@@ -16,21 +18,23 @@ class Navbar extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return <div>Loading...</div>;
-    }
-
-    if (!this.state.api_data) {
-      return <div>Unable to Fetch the Data!</div>;
-    }
-
     return (
       <div>
         <h1 className="heading">
           <WebImage />
           Select Newspaper
         </h1>
-
+        <div className="App">
+          <h1>Enter Query</h1>
+          <input
+            type="text"
+            onChange={(val) => {
+              this.setState({ query: val.target.value });
+              console.log(val);
+            }}
+          />
+          <button onClick={handleClick(query)}> Generate</button>
+        </div>
         <table>
           <thead>
             <tr>
@@ -40,13 +44,18 @@ class Navbar extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.api_data.map((item) => (
-              <tr key={item.id}>
-                <td>{item.email}</td>
-                <td>{item.fname}</td>
-                <td>{item.lname}</td>
+            {
+              /* /* {this.state.api_data.map((item) => (
+              <tr >
+                <td>hunainarif30@gmail.com</td>
+                <td>Hunain</td>
+                <td>Arif</td>
               </tr>
-            ))}
+            ))} */
+              <tr>
+                <td>hunain</td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
