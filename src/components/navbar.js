@@ -1,14 +1,16 @@
 import React, { Component } from "react";
+import { handleClick } from "./queryRequest";
 import WebImage from "./webimage";
 
 class Navbar extends Component {
   state = {
     loading: true,
     api_data: [],
+    query: null,
   };
 
   async componentDidMount() {
-    const url = "http://127.0.0.1:8000/playground/members";
+    const url = "http://127.0.0.1/websearching/";
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
@@ -16,35 +18,45 @@ class Navbar extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return <div>Loading...</div>;
-    }
-
-    if (!this.state.api_data) {
-      return <div>Unable to Fetch the Data!</div>;
-    }
-
     return (
       <div>
         <h1 className="heading">
           <WebImage />
           Select Newspaper
         </h1>
-
+        <div className="App">
+          <h1>Enter Query</h1>
+          <input
+            type="text"
+            onChange={(val) => {
+              this.setState({ query: val.target.value });
+              //  console.log(this.state.query);
+            }}
+          />
+          <button
+            onClick={() => {
+              handleClick(this.state.query);
+            }}
+          >
+            Generate
+          </button>
+        </div>
         <table>
           <thead>
             <tr>
               <th>Link</th>
               <th>Title</th>
-              <th>Text</th>
+              <th>Cosine Score</th>
+              <th>Angle</th>
             </tr>
           </thead>
           <tbody>
             {this.state.api_data.map((item) => (
               <tr key={item.id}>
-                <td>{item.email}</td>
-                <td>{item.fname}</td>
-                <td>{item.lname}</td>
+                <td>{item.link}</td>
+                <td>{item.title}</td>
+                <td>{item.score}</td>
+                <td>{item.angle}</td>
               </tr>
             ))}
           </tbody>
