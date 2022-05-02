@@ -10,7 +10,7 @@ class Navbar extends Component {
   };
 
   async componentDidMount() {
-    const url = "http://127.0.0.1/playground/members";
+    const url = "http://127.0.0.1/websearching/";
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
