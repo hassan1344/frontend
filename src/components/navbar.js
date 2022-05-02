@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { handleClick } from "./queryRequest";
 import WebImage from "./webimage";
 
@@ -10,7 +10,7 @@ class Navbar extends Component {
   };
 
   async componentDidMount() {
-    const url = "http://127.0.0.1:8000/playground/members";
+    const url = "http://127.0.0.1/playground/members";
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
@@ -30,32 +30,35 @@ class Navbar extends Component {
             type="text"
             onChange={(val) => {
               this.setState({ query: val.target.value });
-              console.log(val);
+              //  console.log(this.state.query);
             }}
           />
-          <button onClick={handleClick(query)}> Generate</button>
+          <button
+            onClick={() => {
+              handleClick(this.state.query);
+            }}
+          >
+            Generate
+          </button>
         </div>
         <table>
           <thead>
             <tr>
               <th>Link</th>
               <th>Title</th>
-              <th>Text</th>
+              <th>Cosine Score</th>
+              <th>Angle</th>
             </tr>
           </thead>
           <tbody>
-            {
-              /* /* {this.state.api_data.map((item) => (
-              <tr >
-                <td>hunainarif30@gmail.com</td>
-                <td>Hunain</td>
-                <td>Arif</td>
+            {this.state.api_data.map((item) => (
+              <tr key={item.id}>
+                <td>{item.link}</td>
+                <td>{item.title}</td>
+                <td>{item.score}</td>
+                <td>{item.angle}</td>
               </tr>
-            ))} */
-              <tr>
-                <td>hunain</td>
-              </tr>
-            }
+            ))}
           </tbody>
         </table>
       </div>
