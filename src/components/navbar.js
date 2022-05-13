@@ -7,10 +7,21 @@ class Navbar extends Component {
       <div>
         <h1 className="heading">
           <WebImage />
-          Select Newspaper
+          NewSmart
         </h1>
         <div className="App">
-          <h1>Enter Query</h1>
+          <h1 className="query">Enter Query : </h1>
+          <input
+            type="text"
+            value={this.props.query}
+            onChange={(e) => this.props.set_query(e.target.value)}
+          />
+
+          <button
+            onClick={() => this.props.componentDidMount(this.props.query)}
+          >
+            Execute
+          </button>
         </div>
         <table>
           <thead>
@@ -27,7 +38,10 @@ class Navbar extends Component {
                 <td>{item.link}</td>
                 <td>{item.title}</td>
                 <td>{item.score}</td>
-                <td>{item.angle}</td>
+                <td>
+                  {this.props.Line1(item.angle)}
+                  {this.props.Line2(0)}
+                </td>
               </tr>
             ))}
           </tbody>
