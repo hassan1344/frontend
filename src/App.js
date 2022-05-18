@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/navbar";
-import Angle from "./components/angle";
 
 function App() {
   const [api_data, set_api_data] = useState([]);
